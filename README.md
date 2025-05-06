@@ -1,4 +1,4 @@
-# kickstart.nvim
+# *Raina's* kickstart.nvim
 
 ## Introduction
 
@@ -7,8 +7,12 @@ A starting point for Neovim that is:
 * Small
 * Single-file
 * Completely Documented
+* Cool af
 
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
+My little neovim setup :3
+Took me forever to get one that worked but kickstart was really helpful
+
+### ***WARNING*** This config has key remaps for the [Colemak](https://colemak.com/) keyboard layout. I should have labeled every time I remaped something specifically for colemak, but use it at you're own risk (if you also use colemak then that's really cool and this is perfect for you! <3)
 
 ## Installation
 
@@ -31,11 +35,7 @@ External Requirements:
 - Language Setup:
   - If you want to write Typescript, you need `npm`
   - If you want to write Golang, you will need `go`
-  - etc.
-
-> [!NOTE]
-> See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
-> and quick install snippets
+  - For my setup specifically, I had to do `npm install @microsoft/compose-language-service` for one of the language servers and probobly some other stuff I forgot.
 
 ### Install Kickstart
 
@@ -46,9 +46,7 @@ Neovim's configurations are located under the following paths, depending on your
 
 | OS | PATH |
 | :- | :--- |
-| Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
-| Windows (cmd)| `%localappdata%\nvim\` |
-| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
+| Linux, that's it | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
 
 #### Recommended Step
 
@@ -56,9 +54,7 @@ Neovim's configurations are located under the following paths, depending on your
 so that you have your own copy that you can modify, then install by cloning the
 fork to your machine using one of the commands below, depending on your OS.
 
-> [!NOTE]
-> Your fork's URL will be something like this:
-> `https://github.com/<your_github_username>/kickstart.nvim.git`
+That's what I did :3
 
 You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
 too - it's ignored in the kickstart repo to make maintenance easier, but it's
@@ -70,26 +66,10 @@ too - it's ignored in the kickstart repo to make maintenance easier, but it's
 > If following the recommended step above (i.e., forking the repo), replace
 > `nvim-lua` with `<your_github_username>` in the commands below
 
-<details><summary> Linux and Mac </summary>
+<details><summary> Linux  </summary>
 
 ```sh
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
-```
-
-</details>
-
-<details><summary> Windows </summary>
-
-If you're using `cmd.exe`:
-
-```
-git clone https://github.com/nvim-lua/kickstart.nvim.git "%localappdata%\nvim"
-```
-
-If you're using `powershell.exe`
-
-```
-git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nvim"
 ```
 
 </details>
@@ -117,7 +97,7 @@ examples of adding popularly requested plugins.
 
 ### Getting Started
 
-[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
+If you use qwerty as your keyboard layout then I recommend running :Tutor as it covers the basics
 
 ### FAQ
 
@@ -136,8 +116,10 @@ examples of adding popularly requested plugins.
     config directory and the matching local directory
     `~/.local/share/nvim-kickstart`. You can apply this approach to any Neovim
     distribution that you would like to try out.
+    * This is what I did at first to test it out!
 * What if I want to "uninstall" this configuration:
   * See [lazy.nvim uninstall](https://lazy.folke.io/usage#-uninstalling) information
+    * lol why
 * Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
   * The main purpose of kickstart is to serve as a teaching tool and a reference
     configuration that someone can easily use to `git clone` as a basis for their own.
@@ -148,6 +130,7 @@ examples of adding popularly requested plugins.
   * Discussions on this topic can be found here:
     * [Restructure the configuration](https://github.com/nvim-lua/kickstart.nvim/issues/218)
     * [Reorganize init.lua into a multi-file setup](https://github.com/nvim-lua/kickstart.nvim/pull/473)
+  * I personally found the multiple file thing really confusing when I was first learning lua syntax and nvim shenanagins. (But now the single file setup is a *little* cumbersome)
 
 ### Install Recipes
 
@@ -155,50 +138,18 @@ Below you can find OS specific install instructions for Neovim and dependencies.
 
 After installing all the dependencies continue with the [Install Kickstart](#Install-Kickstart) step.
 
-#### Windows Installation
-
-<details><summary>Windows with Microsoft C++ Build Tools and CMake</summary>
-Installation may require installing build tools and updating the run command for `telescope-fzf-native`
-
-See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
-
-This requires:
-
-- Install CMake and the Microsoft C++ Build Tools on Windows
-
-```lua
-{'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-```
-</details>
-<details><summary>Windows with gcc/make using chocolatey</summary>
-Alternatively, one can install gcc and make which don't require changing the config,
-the easiest way is to use choco:
-
-1. install [chocolatey](https://chocolatey.org/install)
-either follow the instructions on the page or use winget,
-run in cmd as **admin**:
-```
-winget install --accept-source-agreements chocolatey.chocolatey
-```
-
-2. install all requirements using choco, exit the previous cmd and
-open a new one so that choco path is set, and run in cmd as **admin**:
-```
-choco install -y neovim git ripgrep wget fd unzip gzip mingw make
-```
-</details>
-<details><summary>WSL (Windows Subsystem for Linux)</summary>
+#### Arch Linux Install
+<details><summary>Arch Install Steps</summary>
 
 ```
-wsl --install
-wsl
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo apt update
-sudo apt install make gcc ripgrep unzip git xclip neovim
+sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>
 
-#### Linux Install
+#### Other linux install
+
+(this is a joke I understand arch isn't for everyone it's just my favorite <3)
+
 <details><summary>Ubuntu Install Steps</summary>
 
 ```
@@ -231,10 +182,5 @@ sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 ```
 </details>
 
-<details><summary>Arch Install Steps</summary>
 
-```
-sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
-```
-</details>
 
