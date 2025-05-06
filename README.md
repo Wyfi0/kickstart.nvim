@@ -148,7 +148,7 @@ sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 
 #### Other linux install
 
-(this is a joke I understand arch isn't for everyone it's just my favorite <3)
+(this is a joke I understand arch isn't for everyone it's just my favourite <3)
 
 <details><summary>Ubuntu Install Steps</summary>
 
