@@ -15,9 +15,19 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_gitignored = false,
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['<esc>'] = 'cancel', -- close preview or floating neo-tree window
+          -- Colemak movement bindings
+          ['n'] = 'down',
+          ['e'] = 'up',
+          ['m'] = 'left',
+          ['i'] = 'right',
         },
       },
     },
