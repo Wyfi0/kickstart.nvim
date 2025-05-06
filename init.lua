@@ -7,7 +7,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -21,7 +21,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = 'nv'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -90,25 +90,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
---
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
+-- Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use m to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use i to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use e to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use n to move!!"<CR>')
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
 --  See `:help wincmd` for a list of all window commands
--- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
--- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
--- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
--- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- vim.keymap.set("n", 'f', , opts?)
 
@@ -120,8 +112,9 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use n to move!!"<CR>')
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- [[ Colemak specific remaps ]]
-local modes = { 'n', 'x', 'o' }
 
+-- Movement remaps
+local modes = { 'n', 'x', 'o' }
 for _, mode in ipairs(modes) do
   vim.keymap.set(mode, 'm', 'h')
   vim.keymap.set(mode, 'M', 'H')
@@ -129,21 +122,21 @@ for _, mode in ipairs(modes) do
   vim.keymap.set(mode, 'h', 'i')
   vim.keymap.set(mode, 'H', 'I')
 
-  -- down
+  -- down n
   vim.keymap.set(mode, 'n', 'j')
   vim.keymap.set(mode, 'N', 'J')
 
   vim.keymap.set(mode, 'k', 'n')
   vim.keymap.set(mode, 'K', 'N')
 
-  -- up
+  -- up e
   vim.keymap.set(mode, 'e', 'k')
   vim.keymap.set(mode, 'E', 'K')
 
   vim.keymap.set(mode, 'l', 'e')
   vim.keymap.set(mode, 'L', 'E')
 
-  -- right
+  -- right i
   vim.keymap.set(mode, 'i', 'l')
   vim.keymap.set(mode, 'I', 'L')
 
@@ -153,6 +146,13 @@ for _, mode in ipairs(modes) do
   vim.keymap.set(mode, ';', 'm')
   vim.keymap.set(mode, ':', 'M')
 end
+
+-- Window movement
+-- Move between windows with neim
+vim.keymap.set('n', '<C-m>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-i>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-n>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-e>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -626,6 +626,10 @@ require('lazy').setup({
         -- gopls = {},
         pyright = {},
         rust_analyzer = {},
+        hyprls = {},
+        bashls = {},
+        superhtml = {},
+        docker_compose_language_service = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -669,6 +673,15 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      -- Systemd language server setup
+      require('lspconfig').systemd_ls.setup {
+        cmd = { 'systemd-language-server' },
+        filetypes = { 'systemd' },
+        root_dir = function()
+          return vim.loop.cwd()
+        end,
+      }
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -944,10 +957,10 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
