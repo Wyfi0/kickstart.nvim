@@ -35,7 +35,7 @@ External Requirements:
 - Language Setup:
   - If you want to write Typescript, you need `npm`
   - If you want to write Golang, you will need `go`
-  - For my setup specifically, I had to do `npm install @microsoft/compose-language-service` for one of the language servers and probobly some other stuff I forgot.
+  - For my setup specifically, I had to do `npm install @microsoft/compose-language-service` and `yay -S stylua pyright bash-language-server` for some of the language servers and probobly some other stuff I forgot.
 
 ### Install Kickstart
 
