@@ -355,14 +355,13 @@ require('lazy').setup({
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          hidden = true,
+        },
         extensions = {
+          fzf = {
+            hidden = true,
+          },
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
@@ -671,6 +670,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'rnix-lsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
