@@ -104,12 +104,12 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use n to move!!"<CR>')
 
 -- vim.keymap.set("n", 'f', , opts?)
 
--- NOTE: Some terminals have coliding keymaps or are not able to send distinct keycodes
+-- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+-- vim.keymap.set("n", "<C-w>H", "<C-w>M", { desc = "Move window to the left" })
+-- vim.keymap.set("n", "<C-w>L", "<C-w>I", { desc = "Move window to the right" })
+-- vim.keymap.set("n", "<C-w>J", "<C-w>N", { desc = "Move window to the lower" })
+-- vim.keymap.set("n", "<C-w>K", "<C-w>E", { desc = "Move window to the upper" })
 
 -- [[ Colemak specific remaps ]]
 
@@ -191,7 +191,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive', -- A git wrapper for nvim
 
   -- NOTE: Plugins can also be added by using a table,
@@ -310,7 +310,6 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -432,8 +431,8 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
