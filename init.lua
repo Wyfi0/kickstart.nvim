@@ -191,7 +191,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  'Darazaki/indent-o-matic', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive', -- A git wrapper for nvim
 
   -- NOTE: Plugins can also be added by using a table,
