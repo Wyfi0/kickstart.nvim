@@ -12,7 +12,7 @@ A starting point for Neovim that is:
 My little neovim setup :3
 Took me forever to get one that worked but kickstart was really helpful
 
-### ***WARNING*** This config has key remaps for the [Colemak](https://colemak.com/) keyboard layout. I should have labeled every time I remaped something specifically for colemak, but use it at you're own risk (if you also use colemak then that's really cool and this is perfect for you! <3)
+### ***WARNING*** This config has key remaps for the [Colemak](https://colemak.com/) keyboard layout. I should have labeled every time I remaped something specifically for colemak, but use it at your own risk (if you also use colemak then that's really cool and this is perfect for you! <3)
 
 ## Installation
 
