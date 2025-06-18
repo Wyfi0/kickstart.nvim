@@ -194,6 +194,24 @@ require('lazy').setup({
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive', -- A git wrapper for nvim
 
+  {
+    'jghauser/kitty-runner.nvim',
+    config = function()
+      require('kitty-runner').setup {
+        -- Disable default keymaps
+        use_keymaps = false,
+
+        -- Set my own keymaps for the commands
+        vim.keymap.set('n', '<leader>kn', '<cmd>KittyOpenRunner<CR>'),
+        vim.keymap.set('n', '<leader>kr', '<cmd>KittyRunCommand<CR>'),
+        vim.keymap.set('n', '<leader>ks', '<cmd>KittySendLines<CR>'),
+        vim.keymap.set('n', '<leader>kc', '<cmd>KittyClearRunner<CR>'),
+        vim.keymap.set('n', '<leader>kk', '<cmd>KittyKillRunner<CR>'),
+        vim.keymap.set('n', '<leader>kl', '<cmd>KittyReRunCommand<CR>'),
+      }
+    end,
+  },
+
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -296,6 +314,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>k', group = '[K]itty' },
       },
     },
   },
