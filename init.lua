@@ -77,6 +77,12 @@ vim.opt.scrolloff = 5
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- Fold options for nvim-ufo
+--vim.opt.foldcolumn = '1'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -208,6 +214,21 @@ require('lazy').setup({
         vim.keymap.set('n', '<leader>kc', '<cmd>KittyClearRunner<CR>'),
         vim.keymap.set('n', '<leader>kk', '<cmd>KittyKillRunner<CR>'),
         vim.keymap.set('n', '<leader>kl', '<cmd>KittyReRunCommand<CR>'),
+      }
+    end,
+  },
+
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function()
+      require('ufo').setup {
+        -- Set ufo as provider
+        provider_selector = function(bufnr, filetype, buftype)
+          return { 'treesitter', 'indent' }
+        end,
+        vim.keymap.set('n', 'zR', require('ufo').openAllFolds),
+        vim.keymap.set('n', 'zR', require('ufo').closeAllFolds),
       }
     end,
   },
@@ -701,6 +722,9 @@ require('lazy').setup({
           return vim.loop.cwd()
         end,
       }
+
+      -- Nix language server setup
+      require('lspconfig').nil_ls.setup {}
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
