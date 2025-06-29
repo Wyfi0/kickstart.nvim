@@ -14,7 +14,7 @@ Took me forever to get one that worked but kickstart was really helpful
 
 ### ***WARNING*** This config has key remaps for the [Colemak](https://colemak.com/) keyboard layout. I should have labeled every time I remaped something specifically for colemak, but use it at your own risk (if you also use colemak then that's really cool and this is perfect for you! <3)
 
-## Installation
+## Generic Installation
 
 ### Install Neovim
 
@@ -99,6 +99,43 @@ examples of adding popularly requested plugins.
 ### Getting Started
 
 If you use qwerty as your keyboard layout then I recommend running :Tutor as it covers the basics
+
+### Installation on NixOS
+
+    Add this to your home-manager or your configuration.nix
+```nix
+    let 
+        nvim-config = builtins.fetchGit "https://github.com/Wyfi0/kickstrt.nvim.git";
+        ...
+    in
+    ...
+    # Set a font to a nerd font
+    fonts.packages = with pkgs; [ nerd-fonts.sauce-code-pro ];
+
+    # Enable neovim and source my init.lua from my git
+    programs.neovim = {
+      enable = true;
+      extraLuaConfig = lib.fileContents "${nvim-config}/init.lua";
+    };
+
+    # Put the rest of the nvim config files into .config
+    xdg.configFile."nvim".source = nvim-config;
+
+    # And add these to either your home.packages or system.packages
+    gcc
+    fd
+    unzip
+    ripgrep
+    nodejs # For npm
+    go
+    stylua
+    pyright
+    bash-language-server
+    nil
+    rustup
+    cliphist
+    hyprls
+```
 
 ### FAQ
 
